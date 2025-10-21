@@ -1,14 +1,64 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const NUM_DROPS = 150;
 
 const HeroSection = () => {
+  const [currentBgIndex, setCurrentBgIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const drops = Array.from({ length: NUM_DROPS });
 
+  // Background images array - replace these with your actual image URLs
+  const backgroundImages = [
+    "https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80", // Tractor plowing field
+    "https://images.unsplash.com/photo-1500595046743-cd271d694d30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80", // Green agriculture field
+    "https://images.unsplash.com/photo-1470115636492-6d2b56f9146d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80", // Farm landscape
+    "https://images.unsplash.com/photo-1492496913980-501348b61469?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"  // Agricultural field with crops
+  ];
+
+  // Auto-rotate background images with smooth transitions
+  useEffect(() => {
+    const transitionDuration = 3000; // 3 seconds for transition
+    const displayDuration = 5000; // 5 seconds display time
+    
+    const interval = setInterval(() => {
+      setIsTransitioning(true);
+      
+      // Change background after transition starts
+      setTimeout(() => {
+        setCurrentBgIndex((prevIndex) => (prevIndex + 1) % backgroundImages.length);
+      }, transitionDuration / 2);
+      
+      // End transition
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, transitionDuration);
+    }, displayDuration + transitionDuration);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section style={styles.hero} className="hero-section" aria-label="Hero section with animated rain">
+    <section 
+      style={{
+        ...styles.hero,
+        backgroundImage: `linear-gradient(180deg, rgba(26,41,128,0.7) 0%, rgba(38,208,206,0.7) 100%), url(${backgroundImages[currentBgIndex]})`
+      }} 
+      className="hero-section" 
+      aria-label="Hero section with animated rain"
+    >
       <style>{keyframeStyles}</style>
       <style>{mobileStyles}</style>
+      <style>{backgroundTransitionStyles}</style>
+
+      {/* Background transition overlay for smooth fade */}
+      <div 
+        style={{
+          ...styles.backgroundOverlay,
+          opacity: isTransitioning ? 1 : 0,
+        }} 
+        className="background-overlay" 
+        aria-hidden="true"
+      />
 
       {/* Rain layer */}
       <div style={styles.rain} className="rain-layer" aria-hidden="true">
@@ -147,12 +197,105 @@ const keyframeStyles = `
   }
 }
 
+@keyframes backgroundFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+  20% {
+    opacity: 0.3;
+    transform: scale(1.04);
+  }
+  40% {
+    opacity: 0.6;
+    transform: scale(1.02);
+  }
+  60% {
+    opacity: 0.8;
+    transform: scale(1.01);
+  }
+  80% {
+    opacity: 0.9;
+    transform: scale(1.005);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes backgroundFadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  20% {
+    opacity: 0.9;
+    transform: scale(1.005);
+  }
+  40% {
+    opacity: 0.8;
+    transform: scale(1.01);
+  }
+  60% {
+    opacity: 0.6;
+    transform: scale(1.02);
+  }
+  80% {
+    opacity: 0.3;
+    transform: scale(1.04);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
   }
 }
+`;
+
+/* =========================
+   Background Transition Styles
+   ========================= */
+const backgroundTransitionStyles = `
+  .background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(26,41,128,0.8) 0%, rgba(38,208,206,0.8) 100%);
+    z-index: 1;
+    pointer-events: none;
+    transition: opacity 1.5s ease-in-out;
+  }
+
+  .hero-section {
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    transition: background-image 3s ease-in-out;
+    animation: backgroundFadeIn 3s ease-in-out;
+  }
+
+  /* Smooth background change animation */
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 3s ease-in-out;
+  }
 `;
 
 /* =========================
@@ -196,6 +339,15 @@ const mobileStyles = `
     .cloud-3 {
       display: none !important;
     }
+
+    /* Slower transitions on mobile for better performance */
+    .hero-section {
+      transition: background-image 4s ease-in-out !important;
+    }
+    
+    .background-overlay {
+      transition: opacity 2s ease-in-out !important;
+    }
   }
   
   @media (max-width: 480px) {
@@ -229,13 +381,24 @@ const styles = {
     overflow: "hidden",
     color: "#ffffff",
     fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-    background: "linear-gradient(180deg, #1a2980 0%, #26d0ce 100%)",
+    // Background is now set dynamically with the image and gradient overlay
+  },
+
+  backgroundOverlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    zIndex: 1,
+    pointerEvents: "none",
+    transition: "opacity 1.5s ease-in-out",
   },
 
   rain: {
     position: "absolute",
     inset: 0,
-    zIndex: 2,
+    zIndex: 3,
     overflow: "hidden",
     pointerEvents: "none",
   },
@@ -250,7 +413,7 @@ const styles = {
     borderRadius: "50%",
     filter: "blur(2px)",
     animation: "cloudFloat 15s ease-in-out infinite",
-    zIndex: 1,
+    zIndex: 2,
     boxShadow: `
       20px 15px 0 0 rgba(255, 255, 255, 0.9),
       40px 10px 0 0 rgba(255, 255, 255, 0.8),
@@ -271,7 +434,7 @@ const styles = {
     borderRadius: "50%",
     filter: "blur(2px)",
     animation: "cloudFloat 18s ease-in-out infinite 1s",
-    zIndex: 1,
+    zIndex: 2,
     boxShadow: `
       25px 20px 0 0 rgba(255, 255, 255, 0.85),
       45px 15px 0 0 rgba(255, 255, 255, 0.75),
@@ -292,7 +455,7 @@ const styles = {
     borderRadius: "50%",
     filter: "blur(2px)",
     animation: "cloudFloat 12s ease-in-out infinite 0.5s",
-    zIndex: 1,
+    zIndex: 2,
     boxShadow: `
       15px 10px 0 0 rgba(255, 255, 255, 0.8),
       30px 5px 0 0 rgba(255, 255, 255, 0.7),
@@ -305,7 +468,7 @@ const styles = {
 
   heroContent: {
     position: "relative",
-    zIndex: 3,
+    zIndex: 4,
     maxWidth: 800,
     padding: "2rem",
     textAlign: "center",

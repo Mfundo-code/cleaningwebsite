@@ -59,8 +59,8 @@ const ServicesSection = () => {
       icon: "🐜",
       features: ["Termite Inspection", "Wood Treatment", "Soil Treatment", "Prevention"],
       images: [
+        "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
         "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80",
-        "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
         "https://images.unsplash.com/photo-1589656384667-54f5e5a6a2e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80"
       ]
     },
@@ -72,7 +72,7 @@ const ServicesSection = () => {
       features: ["Mosquito Control", "Fly Elimination", "Outdoor Treatment", "Preventive Sprays"],
       images: [
         "https://images.unsplash.com/photo-1556909114-4d0d853e5e25?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-        "https://images.unsplash.com/photo-1584622650114-1f81d0b41b79?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+        "https://images.unsplash.com/photo-1551887377-1a7c2e5954ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=2089&q=80",
         "https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
       ]
     }
@@ -87,15 +87,18 @@ const ServicesSection = () => {
     setCurrentImageIndexes(initialIndexes);
   }, []);
 
-  // Auto-rotate images for each service independently
+  // Auto-rotate images for each service with RANDOM independent timing
   useEffect(() => {
     const intervals = services.map(service => {
+      // Random interval between 3000ms and 8000ms for each service
+      const randomInterval = 3000 + Math.random() * 5000;
+      
       return setInterval(() => {
         setCurrentImageIndexes(prev => ({
           ...prev,
           [service.id]: (prev[service.id] + 1) % service.images.length
         }));
-      }, 4000);
+      }, randomInterval);
     });
 
     return () => intervals.forEach(interval => clearInterval(interval));
@@ -130,6 +133,7 @@ const ServicesSection = () => {
                     ...styles.carouselImage,
                     opacity: imgIndex === currentImageIndexes[service.id] ? 1 : 0,
                     transform: `scale(${imgIndex === currentImageIndexes[service.id] ? 1 : 1.05})`,
+                    zIndex: imgIndex === currentImageIndexes[service.id] ? 1 : 0,
                   }}
                 >
                   <img 
@@ -280,7 +284,7 @@ const styles = {
     left: 0,
     width: "100%",
     height: "100%",
-    transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
+    transition: 'all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
   },
 
   image: {
@@ -471,29 +475,53 @@ const styles = {
 // Add CSS animations and hover effects
 const styleElement = document.createElement('style');
 styleElement.textContent = `
+  @keyframes smoothFade {
+    0% {
+      opacity: 0;
+      transform: scale(1.05);
+    }
+    20% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    80% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.05);
+    }
+  }
+
   @media (hover: hover) {
     .service-card:hover {
       transform: translateY(-6px);
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
       border-color: #3498db;
+      transition: all 0.4s ease;
     }
     
     .learn-more-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+      transition: all 0.3s ease;
     }
     
     .learn-more-btn:hover .button-icon {
       transform: translateX(2px);
+      transition: transform 0.3s ease;
     }
     
     .emergency-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+      transition: all 0.3s ease;
     }
     
     .dot:hover {
       transform: scale(1.3);
+      transition: all 0.3s ease;
     }
   }
 
