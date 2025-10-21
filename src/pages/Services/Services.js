@@ -9,14 +9,13 @@ import ServicesCTA from "./ServicesComponents/ServicesCTA";
 
 const Services = () => {
   return (
-    <main>
-      <div>hey i'm Services page</div>
+    <main style={{ padding: 0, margin: 0 }}>
       <ServicesHero />
       <ServicesAreaSection />
       <ServiceCard />
       <PricingSection />
-      <FAQSection />
       <ComparisonTable />
+      <FAQSection />
       <ServicesCTA />
     </main>
   );
