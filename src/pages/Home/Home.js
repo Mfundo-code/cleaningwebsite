@@ -15,6 +15,7 @@ import FAQSection from "./HomeComponents/FAQSection";
 import NewsletterSection from "./HomeComponents/NewsletterSection";
 import LatestBlogSection from "./HomeComponents/LatestBlogSection";
 import ContactSection from "./HomeComponents/ContactSection";
+import FloatingButtons from "./HomeComponents/FloatingButtons"; // Add this import
 
 const Home = () => {
   return (
@@ -35,6 +36,9 @@ const Home = () => {
       <NewsletterSection />
       <LatestBlogSection />
       <ContactSection /> */}
+      
+      {/* Add Floating Buttons */}
+      <FloatingButtons />
     </main>
   );
 };
