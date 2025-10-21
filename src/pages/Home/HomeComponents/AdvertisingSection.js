@@ -52,7 +52,7 @@ export default AdvertisingSection;
 const styles = {
   container: {
     position: "relative",
-    minHeight: "367px",
+    minHeight: "366px",
     backgroundImage: "linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')",
     backgroundSize: "cover",
     backgroundPosition: "center",

@@ -6,11 +6,12 @@ const HeroSection = () => {
   const drops = Array.from({ length: NUM_DROPS });
 
   return (
-    <section style={styles.hero} aria-label="Hero section with animated rain">
+    <section style={styles.hero} className="hero-section" aria-label="Hero section with animated rain">
       <style>{keyframeStyles}</style>
+      <style>{mobileStyles}</style>
 
       {/* Rain layer */}
-      <div style={styles.rain} aria-hidden="true">
+      <div style={styles.rain} className="rain-layer" aria-hidden="true">
         {drops.map((_, i) => {
           const left = (i / NUM_DROPS) * 100 + ((i % 7) * 0.4);
           const length = 15 + ((i * 5) % 12);
@@ -69,19 +70,19 @@ const HeroSection = () => {
       {/* Faster clouds */}
       <div style={styles.cloud1} />
       <div style={styles.cloud2} />
-      <div style={styles.cloud3} />
+      <div style={styles.cloud3} className="cloud-3" />
 
       {/* Content */}
-      <div style={styles.heroContent}>
-        <h1 style={styles.title}>Magical Rain Showers</h1>
-        <p style={styles.lead}>
+      <div style={styles.heroContent} className="hero-content">
+        <h1 style={styles.title} className="hero-title">Magical Rain Showers</h1>
+        <p style={styles.lead} className="hero-lead">
           Experience the beauty of animated rain with a stunning rainbow backdrop. 
           Pure CSS magic that never stops.
         </p>
 
-        <div style={styles.ctaWrap}>
-          <button style={styles.btn}>Discover Magic</button>
-          <button style={{ ...styles.btn, ...styles.btnGhost }}>Watch Demo</button>
+        <div style={styles.ctaWrap} className="hero-buttons">
+          <button style={styles.btn} className="hero-button">Discover Magic</button>
+          <button style={{ ...styles.btn, ...styles.btnGhost }} className="hero-button">Watch Demo</button>
         </div>
       </div>
     </section>
@@ -155,6 +156,66 @@ const keyframeStyles = `
 `;
 
 /* =========================
+   Mobile Styles
+   ========================= */
+const mobileStyles = `
+  @media (max-width: 768px) {
+    .hero-content {
+      padding: 1rem !important;
+      margin-top: 2rem !important;
+    }
+    
+    .hero-title {
+      font-size: 1.8rem !important;
+      margin-bottom: 1rem !important;
+    }
+    
+    .hero-lead {
+      font-size: 1rem !important;
+      margin-bottom: 1.5rem !important;
+      padding: 0 0.5rem !important;
+    }
+    
+    .hero-buttons {
+      flex-direction: column !important;
+      gap: 0.75rem !important;
+    }
+    
+    .hero-button {
+      width: 100% !important;
+      max-width: 280px !important;
+      margin: 0 auto !important;
+    }
+    
+    /* Reduce rain density on mobile for better performance */
+    .rain-layer {
+      opacity: 0.7 !important;
+    }
+    
+    /* Hide some clouds on mobile */
+    .cloud-3 {
+      display: none !important;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .hero-title {
+      font-size: 1.5rem !important;
+    }
+    
+    .hero-lead {
+      font-size: 0.9rem !important;
+    }
+    
+    .hero-section {
+      min-height: 70vh !important;
+      height: auto !important;
+      padding: 1rem 0 !important;
+    }
+  }
+`;
+
+/* =========================
    Styles
    ========================= */
 const styles = {
@@ -188,7 +249,7 @@ const styles = {
     background: "rgba(255, 255, 255, 0.9)",
     borderRadius: "50%",
     filter: "blur(2px)",
-    animation: "cloudFloat 15s ease-in-out infinite", // Reduced from 25s to 15s
+    animation: "cloudFloat 15s ease-in-out infinite",
     zIndex: 1,
     boxShadow: `
       20px 15px 0 0 rgba(255, 255, 255, 0.9),
@@ -209,7 +270,7 @@ const styles = {
     background: "rgba(255, 255, 255, 0.85)",
     borderRadius: "50%",
     filter: "blur(2px)",
-    animation: "cloudFloat 18s ease-in-out infinite 1s", // Reduced from 30s to 18s
+    animation: "cloudFloat 18s ease-in-out infinite 1s",
     zIndex: 1,
     boxShadow: `
       25px 20px 0 0 rgba(255, 255, 255, 0.85),
@@ -230,7 +291,7 @@ const styles = {
     background: "rgba(255, 255, 255, 0.8)",
     borderRadius: "50%",
     filter: "blur(2px)",
-    animation: "cloudFloat 12s ease-in-out infinite 0.5s", // Reduced from 20s to 12s
+    animation: "cloudFloat 12s ease-in-out infinite 0.5s",
     zIndex: 1,
     boxShadow: `
       15px 10px 0 0 rgba(255, 255, 255, 0.8),
@@ -294,21 +355,4 @@ const styles = {
     background: "transparent",
     border: "1px solid rgba(255, 255, 255, 0.3)",
   },
-};
-
-// Add hover effects for buttons
-styles.btn = {
-  ...styles.btn,
-  ':hover': {
-    background: "rgba(255,255,255,0.25)",
-    transform: "translateY(-2px)",
-  }
-};
-
-styles.btnGhost = {
-  ...styles.btnGhost,
-  ':hover': {
-    background: "rgba(255,255,255,0.1)",
-    transform: "translateY(-2px)",
-  }
 };

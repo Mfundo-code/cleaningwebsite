@@ -21,9 +21,20 @@ const Home = () => {
     <main style={{ padding: 0, margin: 0 }}>
       <HeroSection />
       <CallToActionSection />
+      {/*<FeaturesSection />*/}
+      {/*<HowItWorksSection />*/}
+      <ServicesSection />
+      <ServicesAreaSection />
       <AdvertisingSection />
-
-
+      {/*<PricingSection />
+      <PortfolioSection />
+      <TestimonialsSection />
+      <ClientsSection />
+      <StatsSection />
+      <FAQSection />
+      <NewsletterSection />
+      <LatestBlogSection />
+      <ContactSection /> */}
     </main>
   );
 };
