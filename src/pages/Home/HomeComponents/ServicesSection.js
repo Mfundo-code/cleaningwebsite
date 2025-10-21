@@ -200,7 +200,7 @@ const ServicesSection = () => {
         ))}
       </div>
 
-      {/* Bottom CTA */}
+      {/* Bottom CTA - Updated */}
       <div style={styles.bottomCTA}>
         <div style={styles.ctaContent}>
           <h3 style={styles.ctaTitle}>Need Immediate Assistance?</h3>
@@ -218,7 +218,7 @@ const ServicesSection = () => {
 export default ServicesSection;
 
 /* =========================
-   Clean White Styles - Updated for 6 Cards
+   Clean White Styles - Updated for 6 Cards with Green Emergency Button
    ========================= */
 const styles = {
   container: {
@@ -423,39 +423,47 @@ const styles = {
   },
 
   bottomCTA: {
-    background: "linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)",
-    border: "1px solid #e9ecef",
+    background: "linear-gradient(135deg, #f8fbfe 0%, #f0f7ff 100%)",
+    border: "1px solid #e1f0ff",
     borderRadius: "16px",
     padding: "2.5rem 2rem",
     textAlign: "center",
     maxWidth: "800px",
     margin: "0 auto",
+    position: "relative",
+    overflow: "hidden",
   },
 
   ctaContent: {
     maxWidth: "500px",
     margin: "0 auto",
+    position: "relative",
+    zIndex: 2,
   },
 
   ctaTitle: {
     fontSize: "1.6rem",
     fontWeight: "bold",
-    color: "#2c3e50",
+    background: "linear-gradient(135deg, #3498db 0%, #2980b9 100%)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    backgroundClip: "text",
     margin: "0 0 0.8rem 0",
   },
 
   ctaText: {
-    color: "#6c757d",
+    color: "#5a6c7d",
     margin: "0 0 1.5rem 0",
     lineHeight: 1.5,
     fontSize: "0.95rem",
+    fontWeight: "500",
   },
 
   emergencyButton: {
     display: "inline-flex",
     alignItems: "center",
     gap: "0.6rem",
-    background: "linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)",
+    background: "linear-gradient(135deg, #27ae60 0%, #219653 100%)",
     color: "white",
     border: "none",
     padding: "14px 28px",
@@ -464,7 +472,7 @@ const styles = {
     cursor: "pointer",
     transition: "all 0.3s ease",
     fontSize: "1rem",
-    boxShadow: "0 5px 18px rgba(231, 76, 60, 0.3)",
+    boxShadow: "0 5px 18px rgba(39, 174, 96, 0.3)",
   },
 
   emergencyIcon: {
@@ -494,6 +502,31 @@ styleElement.textContent = `
     }
   }
 
+  /* Add decorative background elements for bottom CTA */
+  .bottom-cta::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.05) 0%, rgba(39, 174, 96, 0.05) 100%);
+    border-radius: 50%;
+    z-index: 1;
+  }
+
+  .bottom-cta::after {
+    content: "";
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(135deg, rgba(39, 174, 96, 0.05) 0%, rgba(52, 152, 219, 0.05) 100%);
+    border-radius: 50%;
+    z-index: 1;
+  }
+
   @media (hover: hover) {
     .service-card:hover {
       transform: translateY(-6px);
@@ -515,7 +548,8 @@ styleElement.textContent = `
     
     .emergency-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+      box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+      background: linear-gradient(135deg, #219653 0%, #1e8749 100%);
       transition: all 0.3s ease;
     }
     
@@ -599,11 +633,15 @@ const addClassNames = () => {
         if (icon) icon.classList.add('button-icon');
       });
       
-      const emergencyBtn = document.querySelector('[style*="linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)"]');
+      const emergencyBtn = document.querySelector('[style*="linear-gradient(135deg, #27ae60 0%, #219653 100%)"]');
       if (emergencyBtn) emergencyBtn.classList.add('emergency-btn');
       
       const dots = document.querySelectorAll('[style*="width: 6px"]');
       dots.forEach(dot => dot.classList.add('dot'));
+      
+      // Add class for bottom CTA
+      const bottomCTA = document.querySelector('[style*="linear-gradient(135deg, #f8fbfe 0%, #f0f7ff 100%)"]');
+      if (bottomCTA) bottomCTA.classList.add('bottom-cta');
     }, 100);
   }
 };
