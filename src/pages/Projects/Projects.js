@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ProjectsHero from "./ProjectsComponents/ProjectsHero";
 import ProjectFilters from "./ProjectsComponents/ProjectFilters";
 import ProjectList from "./ProjectsComponents/ProjectList";
@@ -8,16 +8,32 @@ import CaseStudies from "./ProjectsComponents/CaseStudies";
 import Testimonials from "./ProjectsComponents/Testimonials";
 
 const Projects = () => {
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleProjectSelect = (project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedProject(null);
+  };
+
   return (
     <main>
-      <div>hey i'm Projects page</div>
       <ProjectsHero />
       <ProjectFilters />
-      <ProjectList />
-      <ProjectCard />
-      <ProjectDetailsModal />
+      <ProjectList onProjectSelect={handleProjectSelect} />
       <CaseStudies />
       <Testimonials />
+      
+      <ProjectDetailsModal 
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        project={selectedProject}
+      />
     </main>
   );
 };
