@@ -10,7 +10,6 @@ import SubscribeSection from "./BlogComponents/SubscribeSection";
 const Blog = () => {
   return (
     <main>
-      <div>hey i'm Blog page</div>
       <BlogHero />
       <SearchBar />
       <CategoriesList />

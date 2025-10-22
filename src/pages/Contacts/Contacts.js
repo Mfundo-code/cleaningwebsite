@@ -10,7 +10,6 @@ import ContactCTA from "./ContactsComponents/ContactCTA";
 const Contacts = () => {
   return (
     <main>
-      <div>hey i'm Contacts page</div>
       <ContactHero />
       <ContactForm />
       <ContactDetails />
