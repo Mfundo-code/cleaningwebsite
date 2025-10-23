@@ -1,16 +1,42 @@
 // src/components/Footer.jsx
 import React from 'react';
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebook, FaLinkedin, FaInstagram, FaWhatsapp } from 'react-icons/fa';
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaShieldAlt, FaArrowRight } from 'react-icons/fa';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
+  // Define the correct paths that match your App.js routes
+  const quickLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'About Us', path: '/about' },
+    { name: 'Services', path: '/services' },
+    { name: 'Contact', path: '/contacts' }, // Note: your route is /contacts (plural)
+    { name: 'Blog', path: '/blog' },
+    { name: 'Projects', path: '/projects' }
+  ];
+
+  const services = ['Cockroach Control', 'Rodent Control', 'Ant Elimination', 'Bed Bug Treatment', 'Termite Control', 'Mosquito Control'];
+
   const styles = {
     footer: {
-      backgroundColor: '#0f1f4d',
+      backgroundColor: '#1a2a3a',
+      background: 'linear-gradient(135deg, #1a2a3a 0%, #2c3e50 50%, #34495e 100%)',
       color: 'white',
-      padding: '50px 5%',
-      fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+      padding: '50px 5% 30px',
+      fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+      position: 'relative',
+      overflow: 'hidden'
+    },
+    backgroundPattern: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: `radial-gradient(circle at 20% 80%, rgba(52, 152, 219, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(52, 152, 219, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 40%, rgba(52, 152, 219, 0.05) 0%, transparent 50%)`,
+      pointerEvents: 'none'
     },
     container: {
       maxWidth: '1200px',
@@ -18,30 +44,35 @@ const Footer = () => {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
       gap: '40px',
+      position: 'relative',
+      zIndex: 2
     },
     section: {
-      marginBottom: '30px',
+      marginBottom: '25px',
     },
     heading: {
-      fontSize: '1.4rem',
-      fontWeight: '600',
+      fontSize: '1.3rem',
+      fontWeight: '700',
       marginBottom: '20px',
+      color: '#3498db',
       position: 'relative',
-      paddingBottom: '10px',
+      display: 'inline-block'
     },
-    headingAfter: {
-      content: '""',
+    headingUnderline: {
       position: 'absolute',
-      bottom: '0',
+      bottom: '-5px',
       left: '0',
-      width: '60px',
+      width: '40px',
       height: '3px',
-      background: 'linear-gradient(to right, #4a6fff, #2d4da8)',
+      background: 'linear-gradient(90deg, #3498db, #2980b9)',
+      borderRadius: '2px'
     },
     description: {
-      color: '#cbd5e1',
-      lineHeight: '1.8',
+      color: '#ecf0f1',
+      lineHeight: '1.7',
       marginBottom: '20px',
+      fontSize: '0.95rem',
+      opacity: 0.9
     },
     linkList: {
       listStyle: 'none',
@@ -49,249 +80,225 @@ const Footer = () => {
     },
     linkItem: {
       marginBottom: '12px',
+      position: 'relative',
+      paddingLeft: '0',
+      transition: 'all 0.3s ease'
     },
     link: {
-      color: '#cbd5e1',
+      color: '#ecf0f1',
       textDecoration: 'none',
+      fontSize: '0.95rem',
+      transition: 'all 0.3s ease',
       display: 'flex',
       alignItems: 'center',
-      gap: '10px',
-      transition: 'all 0.3s ease',
+      gap: '8px',
+      opacity: 0.9
     },
     contactItem: {
       display: 'flex',
       alignItems: 'flex-start',
-      marginBottom: '20px',
-      gap: '15px',
+      marginBottom: '18px',
+      gap: '12px',
+      padding: '8px 0',
+      borderBottom: '1px solid rgba(255,255,255,0.05)'
     },
     contactText: {
-      color: '#cbd5e1',
-      lineHeight: '1.6',
+      color: '#ecf0f1',
+      lineHeight: '1.5',
+      fontSize: '0.95rem',
+      opacity: 0.9
     },
-    socialIcons: {
-      display: 'flex',
-      gap: '20px',
-      marginTop: '20px',
-    },
-    socialIcon: {
-      color: 'white',
-      fontSize: '1.5rem',
-      transition: 'all 0.3s ease',
+    serviceBadge: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '8px',
+      background: 'linear-gradient(135deg, rgba(52, 152, 219, 0.15), rgba(41, 128, 185, 0.1))',
+      padding: '8px 16px',
+      borderRadius: '20px',
+      marginBottom: '10px',
+      fontSize: '0.85rem',
+      color: '#3498db',
+      border: '1px solid rgba(52, 152, 219, 0.2)',
+      backdropFilter: 'blur(10px)'
     },
     bottom: {
       textAlign: 'center',
       paddingTop: '30px',
-      marginTop: '50px',
+      marginTop: '40px',
       borderTop: '1px solid rgba(255,255,255,0.1)',
-      color: '#cbd5e1',
+      color: '#bdc3c7',
       fontSize: '0.9rem',
+      position: 'relative',
+      zIndex: 2
+    },
+    ctaSection: {
+      background: 'linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(41, 128, 185, 0.05))',
+      padding: '25px',
+      borderRadius: '15px',
+      border: '1px solid rgba(52, 152, 219, 0.2)',
+      marginTop: '20px',
+      backdropFilter: 'blur(10px)'
+    },
+    ctaButton: {
+      background: 'linear-gradient(135deg, #3498db, #2980b9)',
+      color: 'white',
+      border: 'none',
+      padding: '12px 25px',
+      borderRadius: '25px',
+      fontWeight: '600',
+      cursor: 'pointer',
+      transition: 'all 0.3s ease',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '8px',
+      marginTop: '15px',
+      fontSize: '0.9rem',
+      boxShadow: '0 4px 15px rgba(52, 152, 219, 0.3)'
     }
   };
 
   return (
     <footer style={styles.footer}>
+      {/* Background Pattern */}
+      <div style={styles.backgroundPattern}></div>
+      
       <div style={styles.container}>
+        {/* Company Info */}
         <div style={styles.section}>
           <h3 style={styles.heading}>
-            SkillHive Tutoring
-            <span style={styles.headingAfter}></span>
+            MASHAVHA PEST CONTROL
+            <span style={styles.headingUnderline}></span>
           </h3>
           <p style={styles.description}>
-            Providing expert tutoring services for Grade 10-12 and college students in technical subjects. 
-            Our qualified tutors help students excel in their studies with personalized learning approaches.
+            Professional pest management solutions for homes and businesses. 
+            Eco-friendly treatments with guaranteed results and 24/7 emergency service.
           </p>
-          <div style={styles.socialIcons}>
-            <a href="https://www.facebook.com/profile.php?id=61580367321266" target="_blank" rel="noopener noreferrer">
-              <FaFacebook style={styles.socialIcon} 
-                onMouseEnter={(e) => e.target.style.color = '#4a6fff'} 
-                onMouseLeave={(e) => e.target.style.color = 'white'} />
-            </a>
-            <a href="https://wa.me/27687479018" target="_blank" rel="noopener noreferrer">
-              <FaWhatsapp style={styles.socialIcon} 
-                onMouseEnter={(e) => e.target.style.color = '#4a6fff'} 
-                onMouseLeave={(e) => e.target.style.color = 'white'} />
-            </a>
-            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
-              <FaLinkedin style={styles.socialIcon} 
-                onMouseEnter={(e) => e.target.style.color = '#4a6fff'} 
-                onMouseLeave={(e) => e.target.style.color = 'white'} />
-            </a>
-            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-              <FaInstagram style={styles.socialIcon} 
-                onMouseEnter={(e) => e.target.style.color = '#4a6fff'} 
-                onMouseLeave={(e) => e.target.style.color = 'white'} />
-            </a>
+          
+          <div style={styles.serviceBadge}>
+            <FaShieldAlt /> Licensed & Certified
           </div>
+          <div style={styles.serviceBadge}>
+            ⚡ 24/7 Emergency Service
+          </div>
+
+          {/* Social media buttons have been removed as requested */}
         </div>
 
+        {/* Our Services */}
         <div style={styles.section}>
           <h3 style={styles.heading}>
-            Our Subjects
-            <span style={styles.headingAfter}></span>
+            Our Services
+            <span style={styles.headingUnderline}></span>
           </h3>
           <ul style={styles.linkList}>
-            <li style={styles.linkItem}>
-              <a href="/services" style={styles.link}
+            {services.map((service, index) => (
+              <li key={index} style={styles.linkItem}
                 onMouseEnter={(e) => {
-                  e.target.style.color = 'white';
-                  e.target.style.transform = 'translateX(5px)';
+                  e.currentTarget.style.paddingLeft = '10px';
+                  e.currentTarget.style.transform = 'translateX(5px)';
                 }}
                 onMouseLeave={(e) => {
-                  e.target.style.color = '#cbd5e1';
-                  e.target.style.transform = 'translateX(0)';
+                  e.currentTarget.style.paddingLeft = '0';
+                  e.currentTarget.style.transform = 'translateX(0)';
                 }}>
-                Technical Mathematics
-              </a>
-            </li>
-            <li style={styles.linkItem}>
-              <a href="/services" style={styles.link}
-                onMouseEnter={(e) => {
-                  e.target.style.color = 'white';
-                  e.target.style.transform = 'translateX(5px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.color = '#cbd5e1';
-                  e.target.style.transform = 'translateX(0)';
-                }}>
-                Technical Sciences
-              </a>
-            </li>
-            <li style={styles.linkItem}>
-              <a href="/services" style={styles.link}
-                onMouseEnter={(e) => {
-                  e.target.style.color = 'white';
-                  e.target.style.transform = 'translateX(5px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.color = '#cbd5e1';
-                  e.target.style.transform = 'translateX(0)';
-                }}>
-                Electrical Technology
-              </a>
-            </li>
-            <li style={styles.linkItem}>
-              <a href="/services" style={styles.link}
-                onMouseEnter={(e) => {
-                  e.target.style.color = 'white';
-                  e.target.style.transform = 'translateX(5px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.color = '#cbd5e1';
-                  e.target.style.transform = 'translateX(0)';
-                }}>
-                Engineering Graphics & Design
-              </a>
-            </li>
-            <li style={styles.linkItem}>
-              <a href="/services" style={styles.link}
-                onMouseEnter={(e) => {
-                  e.target.style.color = 'white';
-                  e.target.style.transform = 'translateX(5px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.color = '#cbd5e1';
-                  e.target.style.transform = 'translateX(0)';
-                }}>
-                College N-Level Courses
-              </a>
-            </li>
+                <a href="/services" style={styles.link}
+                  onMouseEnter={(e) => {
+                    e.target.style.color = '#3498db';
+                    e.target.style.opacity = '1';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.color = '#ecf0f1';
+                    e.target.style.opacity = '0.9';
+                  }}>
+                  <FaArrowRight style={{fontSize: '0.8rem', opacity: 0.7}} />
+                  {service}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
 
+        {/* Quick Links */}
         <div style={styles.section}>
           <h3 style={styles.heading}>
             Quick Links
-            <span style={styles.headingAfter}></span>
+            <span style={styles.headingUnderline}></span>
           </h3>
           <ul style={styles.linkList}>
-            <li style={styles.linkItem}>
-              <a href="/" style={styles.link}
+            {quickLinks.map((link, index) => (
+              <li key={index} style={styles.linkItem}
                 onMouseEnter={(e) => {
-                  e.target.style.color = 'white';
-                  e.target.style.transform = 'translateX(5px)';
+                  e.currentTarget.style.paddingLeft = '10px';
+                  e.currentTarget.style.transform = 'translateX(5px)';
                 }}
                 onMouseLeave={(e) => {
-                  e.target.style.color = '#cbd5e1';
-                  e.target.style.transform = 'translateX(0)';
-                }}>Home</a>
-            </li>
-            <li style={styles.linkItem}>
-              <a href="/about" style={styles.link}
-                onMouseEnter={(e) => {
-                  e.target.style.color = 'white';
-                  e.target.style.transform = 'translateX(5px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.color = '#cbd5e1';
-                  e.target.style.transform = 'translateX(0)';
-                }}>About Us</a>
-            </li>
-            <li style={styles.linkItem}>
-              <a href="/services" style={styles.link}
-                onMouseEnter={(e) => {
-                  e.target.style.color = 'white';
-                  e.target.style.transform = 'translateX(5px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.color = '#cbd5e1';
-                  e.target.style.transform = 'translateX(0)';
-                }}>Services</a>
-            </li>
-            <li style={styles.linkItem}>
-              <a href="/contact" style={styles.link}
-                onMouseEnter={(e) => {
-                  e.target.style.color = 'white';
-                  e.target.style.transform = 'translateX(5px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.color = '#cbd5e1';
-                  e.target.style.transform = 'translateX(0)';
-                }}>Contact</a>
-            </li>
-            <li style={styles.linkItem}>
-              <a href="/privacy" style={styles.link}
-                onMouseEnter={(e) => {
-                  e.target.style.color = 'white';
-                  e.target.style.transform = 'translateX(5px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.color = '#cbd5e1';
-                  e.target.style.transform = 'translateX(0)';
-                }}>Pricing</a>
-            </li>
+                  e.currentTarget.style.paddingLeft = '0';
+                  e.currentTarget.style.transform = 'translateX(0)';
+                }}>
+                <a href={link.path} style={styles.link}
+                  onMouseEnter={(e) => {
+                    e.target.style.color = '#3498db';
+                    e.target.style.opacity = '1';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.color = '#ecf0f1';
+                    e.target.style.opacity = '0.9';
+                  }}>
+                  <FaArrowRight style={{fontSize: '0.8rem', opacity: 0.7}} />
+                  {link.name}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
 
+        {/* Contact Info & CTA */}
         <div style={styles.section}>
           <h3 style={styles.heading}>
             Contact Us
-            <span style={styles.headingAfter}></span>
+            <span style={styles.headingUnderline}></span>
           </h3>
           <div style={styles.contactItem}>
-            <FaMapMarkerAlt style={{ color: '#4a6fff', fontSize: '1.2rem', flexShrink: 0 }} />
-            <span style={styles.contactText}>Matlosana Municipality, Klerksdorp, South Africa</span>
-          </div>
-          <div style={styles.contactItem}>
-            <FaPhone style={{ color: '#4a6fff', fontSize: '1.2rem', flexShrink: 0 }} />
+            <FaPhone style={{ color: '#3498db', fontSize: '1.1rem', flexShrink: 0 }} />
             <span style={styles.contactText}>068 747 9018</span>
           </div>
           <div style={styles.contactItem}>
-            <FaWhatsapp style={{ color: '#4a6fff', fontSize: '1.2rem', flexShrink: 0 }} />
-            <a href="https://wa.me/27687479018" style={{...styles.contactText, textDecoration: 'none', color: '#cbd5e1'}}>
-              +27 68 747 9018
+            <FaEnvelope style={{ color: '#3498db', fontSize: '1.1rem', flexShrink: 0 }} />
+            <a href="mailto:info@mashavhapestcontrol.co.za" style={{...styles.contactText, textDecoration: 'none'}}
+              onMouseEnter={(e) => e.target.style.color = '#3498db'}
+              onMouseLeave={(e) => e.target.style.color = '#ecf0f1'}>
+              info@mashavhapestcontrol.co.za
             </a>
           </div>
-          <div style={styles.contactItem}>
-            <FaEnvelope style={{ color: '#4a6fff', fontSize: '1.2rem', flexShrink: 0 }} />
-            <a href="mailto:admin@skill-hive.co.za" style={{...styles.contactText, textDecoration: 'none', color: '#cbd5e1'}}>
-              admin@skill-hive.co.za
-            </a>
+
+          {/* CTA Section */}
+          <div style={styles.ctaSection}>
+            <h4 style={{color: '#3498db', margin: '0 0 10px 0', fontSize: '1rem'}}>
+              Need Emergency Pest Control?
+            </h4>
+            <p style={{...styles.contactText, margin: 0, fontSize: '0.9rem'}}>
+              We're available 24/7 for urgent pest situations
+            </p>
+            <button style={styles.ctaButton}
+              onMouseEnter={(e) => {
+                e.target.style.transform = 'translateY(-2px)';
+                e.target.style.boxShadow = '0 6px 20px rgba(52, 152, 219, 0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.transform = 'translateY(0)';
+                e.target.style.boxShadow = '0 4px 15px rgba(52, 152, 219, 0.3)';
+              }}
+              onClick={() => window.location.href = 'tel:0687479018'}>
+              Call Now <FaArrowRight />
+            </button>
           </div>
         </div>
       </div>
 
       <div style={styles.bottom}>
-        &copy; {currentYear} SkillHive Tutoring. All rights reserved.
+        <div>
+          &copy; {currentYear} MASHAVHA PEST CONTROL. All rights reserved. | Professional Pest Management Services
+        </div>
       </div>
     </footer>
   );

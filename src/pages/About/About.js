@@ -14,7 +14,6 @@ const About = () => {
       <AboutHero />
       <MissionSection />
       <ValuesSection />
-      <TimelineSection />
       <AboutCTA />
     </main>
   );

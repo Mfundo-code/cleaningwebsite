@@ -12,7 +12,7 @@ const ServiceCard = () => {
         price: "From $89",
         duration: "1-2 hours",
         features: ["Safe for pets", "Eco-friendly", "30-day guarantee"],
-        image: "https://images.unsplash.com/photo-1556909114-4d0d853e5e25?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+        image: "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       },
       {
         id: 2,
@@ -80,9 +80,9 @@ const ServiceCard = () => {
 
       <div style={styles.servicesGrid}>
         {filteredServices.map(service => (
-          <div key={service.id} style={styles.serviceCard}>
+          <div key={service.id} style={styles.serviceCard} className="service-card">
             <div style={styles.imageContainer}>
-              <img src={service.image} alt={service.title} style={styles.image} />
+              <img src={service.image} alt={service.title} style={styles.image} className="service-image" />
               <div style={styles.priceBadge}>{service.price}</div>
             </div>
             
@@ -105,8 +105,14 @@ const ServiceCard = () => {
               </div>
               
               <div style={styles.cardActions}>
-                <button style={styles.learnMoreBtn}>Learn More</button>
-                <button style={styles.bookNowBtn}>Book Now</button>
+                <button style={styles.learnMoreBtn} className="learn-more-btn">
+                  Learn More
+                  <span style={styles.arrow}>→</span>
+                </button>
+                <button style={styles.bookNowBtn} className="learn-more-btn">
+                  Book Now
+                  <span style={styles.arrow}>→</span>
+                </button>
               </div>
             </div>
           </div>
@@ -118,26 +124,31 @@ const ServiceCard = () => {
 
 const styles = {
   container: {
-    padding: "4rem 2rem",
-    background: "#f8f9fa",
+    padding: "3rem 1.5rem",
+    background: "linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)",
     fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif',
   },
   header: {
     textAlign: "center",
     marginBottom: "3rem",
+    maxWidth: "700px",
+    margin: "0 auto 3rem",
   },
   title: {
-    fontSize: "2.5rem",
+    fontSize: "clamp(1.5rem, 3vw, 2.2rem)",
     fontWeight: "bold",
     color: "#2c3e50",
-    margin: "0 0 1rem 0",
+    margin: "0 0 0.8rem 0",
+    background: "linear-gradient(135deg, #2c3e50 0%, #3498db 100%)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    backgroundClip: "text",
   },
   subtitle: {
-    fontSize: "1.1rem",
+    fontSize: "1rem",
     color: "#6c757d",
-    maxWidth: "600px",
-    margin: "0 auto",
-    lineHeight: 1.6,
+    lineHeight: 1.5,
+    margin: 0,
   },
   filterTabs: {
     display: "flex",
@@ -147,67 +158,73 @@ const styles = {
     flexWrap: "wrap",
   },
   filterTab: {
-    padding: "12px 24px",
+    padding: "10px 18px",
     border: "2px solid #3498db",
     background: "transparent",
     color: "#3498db",
-    borderRadius: "25px",
+    borderRadius: "6px",
     cursor: "pointer",
     fontWeight: "600",
     transition: "all 0.3s ease",
+    fontSize: "0.85rem",
   },
   activeFilterTab: {
-    background: "#3498db",
+    background: "linear-gradient(135deg, #3498db 0%, #2980b9 100%)",
     color: "white",
+    border: "2px solid transparent",
   },
   servicesGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
-    gap: "2rem",
+    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+    gap: "1.5rem",
     maxWidth: "1200px",
     margin: "0 auto",
   },
   serviceCard: {
-    background: "white",
-    borderRadius: "12px",
+    background: "#ffffff",
+    borderRadius: "16px",
     overflow: "hidden",
-    boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
-    transition: "transform 0.3s ease",
+    boxShadow: "0 6px 20px rgba(0,0,0,0.08)",
+    transition: "all 0.3s ease",
+    border: "1px solid rgba(255,255,255,0.2)",
   },
   imageContainer: {
     position: "relative",
-    height: "200px",
+    height: "180px",
     overflow: "hidden",
   },
   image: {
     width: "100%",
     height: "100%",
     objectFit: "cover",
+    transition: "transform 0.3s ease",
   },
   priceBadge: {
     position: "absolute",
-    top: "1rem",
-    right: "1rem",
+    top: "0.8rem",
+    right: "0.8rem",
     background: "#27ae60",
     color: "white",
-    padding: "8px 16px",
+    padding: "6px 12px",
     borderRadius: "20px",
     fontWeight: "bold",
-    fontSize: "0.9rem",
+    fontSize: "0.8rem",
   },
   cardContent: {
     padding: "1.5rem",
   },
   serviceTitle: {
-    fontSize: "1.3rem",
+    fontSize: "1.2rem",
     fontWeight: "bold",
     color: "#2c3e50",
-    margin: "0 0 1rem 0",
+    margin: "0 0 0.8rem 0",
+    lineHeight: 1.3,
   },
   serviceDescription: {
     color: "#6c757d",
-    lineHeight: 1.6,
+    lineHeight: 1.5,
     margin: "0 0 1rem 0",
+    fontSize: "0.85rem",
   },
   duration: {
     display: "flex",
@@ -216,51 +233,205 @@ const styles = {
     color: "#3498db",
     fontWeight: "600",
     margin: "0 0 1rem 0",
+    fontSize: "0.8rem",
   },
   durationIcon: {
-    fontSize: "1rem",
+    fontSize: "0.9rem",
   },
   features: {
-    margin: "1.5rem 0",
+    margin: "1.2rem 0",
   },
   feature: {
     display: "flex",
     alignItems: "center",
-    gap: "0.5rem",
-    margin: "0.5rem 0",
+    gap: "0.6rem",
+    margin: "0.4rem 0",
     color: "#495057",
+    fontSize: "0.8rem",
+    fontWeight: "500",
   },
   checkmark: {
     color: "#27ae60",
     fontWeight: "bold",
+    fontSize: "0.9rem",
+    minWidth: "16px",
   },
   cardActions: {
     display: "flex",
-    gap: "1rem",
+    gap: "0.8rem",
     marginTop: "1.5rem",
   },
   learnMoreBtn: {
     flex: 1,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "0.4rem",
     background: "transparent",
     color: "#3498db",
     border: "2px solid #3498db",
-    padding: "10px 20px",
+    padding: "10px 18px",
     borderRadius: "6px",
     cursor: "pointer",
     fontWeight: "600",
     transition: "all 0.3s ease",
+    fontSize: "0.85rem",
   },
   bookNowBtn: {
     flex: 1,
-    background: "#3498db",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "0.4rem",
+    background: "linear-gradient(135deg, #3498db 0%, #2980b9 100%)",
     color: "white",
     border: "none",
-    padding: "10px 20px",
+    padding: "10px 18px",
     borderRadius: "6px",
     cursor: "pointer",
     fontWeight: "600",
     transition: "all 0.3s ease",
+    fontSize: "0.85rem",
+    boxShadow: "0 3px 12px rgba(52, 152, 219, 0.25)",
+  },
+  arrow: {
+    transition: "transform 0.3s ease",
+    fontSize: "0.9rem",
   },
 };
+
+// Add hover effects
+const hoverStyles = `
+  @media (hover: hover) {
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+    }
+    
+    .service-card:hover .service-image {
+      transform: scale(1.05);
+    }
+    
+    .learn-more-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(52, 152, 219, 0.35);
+    }
+    
+    .learn-more-btn:hover .arrow {
+      transform: translateX(2px);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .services-grid {
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+    }
+    
+    .service-card {
+      margin: 0 0.8rem;
+    }
+    
+    .image-container {
+      height: 160px;
+    }
+    
+    .card-content {
+      padding: 1.2rem;
+    }
+    
+    .card-actions {
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 2rem 1rem;
+    }
+    
+    .header {
+      margin-bottom: 2rem;
+    }
+    
+    .service-card {
+      margin: 0;
+    }
+    
+    .services-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    
+    .filter-tabs {
+      gap: 0.6rem;
+    }
+    
+    .filter-tab {
+      padding: 8px 14px;
+      font-size: 0.8rem;
+    }
+  }
+`;
+
+// Inject styles and add class names
+if (typeof document !== 'undefined') {
+  const styleElement = document.createElement('style');
+  styleElement.textContent = hoverStyles;
+  document.head.appendChild(styleElement);
+}
+
+// Add class names to elements for CSS targeting
+const addServiceClassNames = () => {
+  if (typeof document !== 'undefined') {
+    setTimeout(() => {
+      const cards = document.querySelectorAll('[style*="background: #ffffff"]');
+      cards.forEach(card => {
+        if (card.style.borderRadius === '16px') {
+          card.classList.add('service-card');
+        }
+      });
+      
+      const images = document.querySelectorAll('img');
+      images.forEach(img => {
+        if (img.style.objectFit === 'cover') {
+          img.classList.add('service-image');
+        }
+      });
+      
+      const buttons = document.querySelectorAll('button');
+      buttons.forEach(btn => {
+        if (btn.style.background && (btn.style.background.includes('linear-gradient') || btn.style.border === '2px solid rgb(52, 152, 219)')) {
+          btn.classList.add('learn-more-btn');
+        }
+      });
+      
+      const arrows = document.querySelectorAll('[style*="transition: transform 0.3s ease"]');
+      arrows.forEach(arrow => {
+        arrow.classList.add('arrow');
+      });
+
+      const grids = document.querySelectorAll('[style*="gridTemplateColumns: repeat(auto-fit, minmax(280px, 1fr))"]');
+      grids.forEach(grid => {
+        grid.classList.add('services-grid');
+      });
+
+      const filterContainers = document.querySelectorAll('[style*="justifyContent: center"]');
+      filterContainers.forEach(container => {
+        if (container.style.display === 'flex' && container.style.flexWrap === 'wrap') {
+          container.classList.add('filter-tabs');
+        }
+      });
+
+      const filterButtons = document.querySelectorAll('[style*="border: 2px solid rgb(52, 152, 219)"]');
+      filterButtons.forEach(button => {
+        button.classList.add('filter-tab');
+      });
+    }, 100);
+  }
+};
+
+addServiceClassNames();
 
 export default ServiceCard;
