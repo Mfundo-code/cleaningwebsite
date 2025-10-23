@@ -11,13 +11,9 @@ import AboutCTA from "./AboutComponents/AboutCTA";
 const About = () => {
   return (
     <main>
-      <div>hey i'm About page</div>
       <AboutHero />
       <MissionSection />
-      <HistorySection />
-      <TeamSection />
       <ValuesSection />
-      <StatsSection />
       <TimelineSection />
       <AboutCTA />
     </main>

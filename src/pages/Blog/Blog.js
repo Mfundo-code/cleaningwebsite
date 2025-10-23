@@ -12,7 +12,6 @@ const Blog = () => {
     <main>
       <BlogHero />
       <SearchBar />
-      <CategoriesList />
       <BlogList />
       <BlogPostPreview />
       <PopularPosts />

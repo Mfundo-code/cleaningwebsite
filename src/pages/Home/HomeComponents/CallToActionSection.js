@@ -5,7 +5,7 @@ const CallToActionSection = () => (
     <div className="cta-content">
       {/* Left section - Text content */}
       <div className="cta-text-section">
-        <h2 className="cta-title">We're The Dust Busters!</h2>
+        <h2 className="cta-title">We're The Pest Busters!</h2>
         <p className="cta-description">
           Don't let pests invade your peace of mind! From ants and cockroaches to termites and rodents, 
           we eliminate pests quickly and prevent them from coming back—so you can feel safe and comfortable again.

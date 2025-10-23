@@ -36,8 +36,6 @@ const Home = () => {
       <NewsletterSection />
       <LatestBlogSection />
       <ContactSection /> */}
-      
-      {/* Add Floating Buttons */}
       <FloatingButtons />
     </main>
   );

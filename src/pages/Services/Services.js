@@ -16,7 +16,6 @@ const Services = () => {
       <ServicesAreaSection />
       <ServiceCard />
       <PricingSection />
-      <ComparisonTable />
       <FAQSection />
       <ServicesCTA />
     </main>

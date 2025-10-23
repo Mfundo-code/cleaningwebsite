@@ -124,15 +124,15 @@ const HeroSection = () => {
 
       {/* Content */}
       <div style={styles.heroContent} className="hero-content">
-        <h1 style={styles.title} className="hero-title">Magical Rain Showers</h1>
+        <h1 style={styles.title} className="hero-title">MASHAVHA PEST CONTROL</h1>
         <p style={styles.lead} className="hero-lead">
-          Experience the beauty of animated rain with a stunning rainbow backdrop. 
-          Pure CSS magic that never stops.
+          Professional pest management solutions for homes and businesses. 
+          Eco-friendly treatments with guaranteed results and 24/7 emergency service.
         </p>
 
         <div style={styles.ctaWrap} className="hero-buttons">
-          <button style={styles.btn} className="hero-button">Discover Magic</button>
-          <button style={{ ...styles.btn, ...styles.btnGhost }} className="hero-button">Watch Demo</button>
+          <button style={styles.btn} className="hero-button">Our Services</button>
+          <button style={{ ...styles.btn, ...styles.btnGhost }} className="hero-button">Get In Touch</button>
         </div>
       </div>
     </section>
